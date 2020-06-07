@@ -8,7 +8,7 @@ import (
 
 
 //CreateBusinessCompany is
-func (*Server) (ctx context.Context, request *pb.BusinessCompanyImageDeleteRequest) (*pb.BusinessCompanyImageDeleteResponse, error) {
+func (*Server) BusinessCompanyImageDelete (ctx context.Context, request *pb.BusinessCompanyImageDeleteRequest) (*pb.BusinessCompanyImageDeleteResponse, error) {
 	image, err := db.BusinessCompanyImageDeleteRepository(context.Background(), request.GetImageID())
 	if err != nil {
 		return nil, err
