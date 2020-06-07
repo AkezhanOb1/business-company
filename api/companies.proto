@@ -140,7 +140,16 @@ message BusinessCompanyImageDeleteResponse {
     string imagePath = 2;
 }
 
+message SearchBusinessCompanyRequest {
+    string businessCompanyName = 1;
+}
+
+message SearchBusinessCompanyResponse {
+    repeated BusinessCompany businessCompanies = 1;
+}
+
  service BusinessCompaniesService {
+    rpc SearchBusinessCompany(SearchBusinessCompanyRequest) returns (SearchBusinessCompanyResponse) {}
     rpc BusinessCompanyImageDelete(BusinessCompanyImageDeleteRequest) returns (BusinessCompanyImageDeleteResponse) {}
     rpc BusinessCompanyImageUpload(BusinessCompanyImageUploadRequest) returns (BusinessCompanyImageUploadResponse) {}
     rpc GetBusinessCompany(GetBusinessCompanyRequest) returns (GetBusinessCompanyResponse) {}
