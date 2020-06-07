@@ -131,7 +131,17 @@ message BusinessCompanyImageUploadResponse {
     int64 imageID = 1;
 }
 
+message BusinessCompanyImageDeleteRequest {
+    int64 imageID = 1;
+}
+
+message BusinessCompanyImageDeleteResponse {
+    int64 imageID =1;
+    string imagePath = 2;
+}
+
  service BusinessCompaniesService {
+    rpc BusinessCompanyImageDelete(BusinessCompanyImageDeleteRequest) returns (BusinessCompanyImageDeleteResponse) {}
     rpc BusinessCompanyImageUpload(BusinessCompanyImageUploadRequest) returns (BusinessCompanyImageUploadResponse) {}
     rpc GetBusinessCompany(GetBusinessCompanyRequest) returns (GetBusinessCompanyResponse) {}
     rpc GetBusinessCompanies(google.protobuf.Empty) returns (GetBusinessCompaniesResponse) {}
