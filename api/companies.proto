@@ -116,7 +116,23 @@ message GetBusinessCompaniesUnderCategoryResponse {
     repeated BusinessCompany businessCompanies = 1;
 }
 
+message File {
+    bytes file = 1;
+    string fileName = 2;
+    int64 size = 3;
+    string contentType = 4;
+}
+message BusinessCompanyImageUploadRequest {
+    int64 businessCompanyID = 1;
+    File  image = 2;
+}
+
+message BusinessCompanyImageUploadResponse {
+    int64 imageID = 1;
+}
+
  service BusinessCompaniesService {
+    rpc BusinessCompanyImageUpload(BusinessCompanyImageUploadRequest) returns (BusinessCompanyImageUploadResponse) {}
     rpc GetBusinessCompany(GetBusinessCompanyRequest) returns (GetBusinessCompanyResponse) {}
     rpc GetBusinessCompanies(google.protobuf.Empty) returns (GetBusinessCompaniesResponse) {}
     rpc GetBusinessCompanyServices(GetBusinessCompanyServicesRequest) returns (GetBusinessCompanyServicesResponse) {}
