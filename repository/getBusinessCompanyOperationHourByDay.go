@@ -3,7 +3,6 @@ package repository
 import (
 	pb "github.com/AkezhanOb1/business-company/api"
 	"github.com/AkezhanOb1/business-company/config"
-	"log"
 	"github.com/jackc/pgx/v4"
 	"context"
 
