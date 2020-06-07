@@ -4,7 +4,6 @@ import (
 	"context"
 	pb "github.com/AkezhanOb1/business-company/api"
 	"github.com/AkezhanOb1/business-company/config"
-
 	"github.com/jackc/pgx/v4"
 )
 
@@ -18,17 +17,22 @@ func BusinessCompanyImageDeleteRepository(ctx context.Context, imageID int64) (*
 
 	defer conn.Close(context.Background())
 
-
 	sqlQuery := `DELETE FROM business_company_image WHERE id=$1 RETURNING *;`
 
 	row := conn.QueryRow(ctx, sqlQuery, imageID)
 
 	var image pb.BusinessCompanyImageDeleteResponse
+	var businessCompanyID int64
 
 	err = row.Scan(
 		&image.ImageID,
 		&image.ImagePath,
+		&businessCompanyID,
 	)
+
+	if err != nil {
+		return nil, err
+	}
 
 
 	return &image, nil
