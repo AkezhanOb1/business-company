@@ -142,11 +142,13 @@ message BusinessCompanyImageDeleteResponse {
 
 message SearchBusinessCompanyRequest {
     string businessCompanyName = 1;
+    int64  businessCategoryID = 2;
 }
 
 message SearchBusinessCompanyResponse {
     repeated BusinessCompany businessCompanies = 1;
 }
+
 
  service BusinessCompaniesService {
     rpc SearchBusinessCompany(SearchBusinessCompanyRequest) returns (SearchBusinessCompanyResponse) {}

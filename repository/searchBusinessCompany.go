@@ -11,7 +11,7 @@ import (
 
 //SearchBusinessCompanyRepository is a repository that responsible to all the requests to DB
 //about business categories
-func SearchBusinessCompanyRepository(ctx context.Context, companyName string) (*pb.SearchBusinessCompanyResponse, error) {
+func SearchBusinessCompanyRepository(ctx context.Context, request *pb.SearchBusinessCompanyRequest) (*pb.SearchBusinessCompanyResponse, error) {
 	conn, err := pgx.Connect(ctx, config.PostgresConnection)
 	if err != nil {
 		return nil, err
@@ -19,13 +19,17 @@ func SearchBusinessCompanyRepository(ctx context.Context, companyName string) (*
 
 	defer conn.Close(ctx)
 
-
-	companyName = companyName + "%"
+	request.BusinessCompanyName = request.BusinessCompanyName + "%"
 	sqlQuery := `SELECT id, name, category_id, address 
 					FROM business_company
-				 WHERE LOWER(name) LIKE LOWER($1);`
+				 WHERE LOWER(name) LIKE LOWER($1) AND category_id=$2;`
 
-	rows, err := conn.Query(ctx, sqlQuery, companyName)
+	rows, err := conn.Query(
+		ctx,
+		sqlQuery,
+		request.BusinessCompanyName,
+		request.BusinessCategoryID,
+	)
 	if err != nil {
 		return nil, err
 	}

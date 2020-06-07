@@ -8,7 +8,7 @@ import (
 
 //GetBusinessCompanies is
 func (*Server) SearchBusinessCompany(ctx context.Context, request *pb.SearchBusinessCompanyRequest) (*pb.SearchBusinessCompanyResponse, error) {
-	businessCompanies, err := db.SearchBusinessCompanyRepository(ctx, request.GetBusinessCompanyName())
+	businessCompanies, err := db.SearchBusinessCompanyRepository(ctx, request)
 	if err != nil {
 		return nil, err
 	}
